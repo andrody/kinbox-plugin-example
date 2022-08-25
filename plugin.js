@@ -24,7 +24,7 @@ Kinbox.on("callback", function (data) {
         if (data.success) {
             Kinbox.toast("success", "Alterou idade com sucesso")
         } else {
-            Kinbox.toast("success", "Erro ao alterar idade")
+            Kinbox.toast("error", "Erro ao alterar idade")
         }
     }
 })
