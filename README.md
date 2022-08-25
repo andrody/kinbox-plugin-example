@@ -1,4 +1,4 @@
-# kinbox.github.io
+# kinbox-plugin-example
 Plugin de exemplo Kinbox
 
 [Site](https://www.kinbox.com.br/) |
