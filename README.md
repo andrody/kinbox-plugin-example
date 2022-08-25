@@ -6,3 +6,6 @@ Plugin de exemplo Kinbox
 
 Vídeo tutorial:
 https://youtu.be/iEn0_4kE3rI
+
+[![Veja o tutorial](https://i.imgur.com/VL0KXST.png)](https://youtu.be/iEn0_4kE3rI)
+
