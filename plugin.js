@@ -86,7 +86,7 @@ async function changeCustomField() {
     })
 }
 
-async function changeCustomField() {
+async function changeSessionCustomField() {
     // Estou supondo que existe um customField de sessão com o placeholder chamado "idade"
     const idadeAleatoria = Math.floor(Math.random() * (100 - 1 + 1) + 1) + ""
 
