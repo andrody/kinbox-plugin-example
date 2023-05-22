@@ -86,6 +86,21 @@ async function changeCustomField() {
     })
 }
 
+async function changeCustomField() {
+    // Estou supondo que existe um customField de sessão com o placeholder chamado "idade"
+    const idadeAleatoria = Math.floor(Math.random() * (100 - 1 + 1) + 1) + ""
+
+    Kinbox.loading(true)
+    Kinbox.setProperty({
+        key: "idade_session-changed",
+        type: "session",
+        sessionId: conversation.session.id,
+        fields: {
+            idade_sessao: { value: idadeAleatoria },
+        },
+    })
+}
+
 function getFacts() {
     Kinbox.loading(true)
 
