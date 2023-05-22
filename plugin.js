@@ -92,7 +92,7 @@ async function changeSessionCustomField() {
 
     Kinbox.loading(true)
     Kinbox.setProperty({
-        key: "idade_session-changed",
+        key: "idade-changed",
         type: "session",
         sessionId: conversation.session.id,
         fields: {
