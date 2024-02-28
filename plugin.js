@@ -12,11 +12,7 @@ Kinbox.on("conversation", function (data) {
     conversation = data
     console.log("on conversation", data)
 
-    // Obter informações do workspace
-    Kinbox.getWorkspaceInfo(async function (data) {
-        console.log("on workspaceInfo", data)
-        workspaceInfo = data
-    })
+    getWorkspaceInfo()
 })
 
 Kinbox.on("no_conversation", function (data) {
@@ -135,14 +131,18 @@ function addTag() {
 }
 
 function removeTag() {
-    Kinbox.addTag(workspaceInfo?.tags?.[0]?.id)
+    Kinbox.removeTag(workspaceInfo?.tags?.[0]?.id)
 }
 
 function getWorkspaceInfo() {
-    Kinbox.getWorkspaceInfo()
+    // Obter informações do workspace
+    Kinbox.getWorkspaceInfo(async function (data) {
+        console.log("on workspaceInfo", data)
+        workspaceInfo = data
+    })
 }
 
-function sendForm() {
+function sendForm(type) {
     Kinbox.sendForm(
         {
             items: [
@@ -150,11 +150,13 @@ function sendForm() {
                     type: "text",
                     name: "exemplo_texto",
                     label: "Exemplo de texto",
+                    required: true,
                 },
                 {
                     type: "select",
                     name: "exemplo_select",
                     label: "Exemplo de seleção",
+                    required: false,
                     options: [
                         {
                             value: "fortaleza",
@@ -200,10 +202,10 @@ function sendForm() {
                     label: "Exemplo de decimal",
                 },
             ],
-            type: "modal", // modal or drawer
+            type, // modal or drawer
             title: "Formulário de exemplo",
         },
-        async function (payload) {
+        function (payload) {
             console.log(payload)
         }
     )
