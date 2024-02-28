@@ -2,6 +2,7 @@
  * Variáveis globais
  ********************/
 var conversation
+var workspaceInfo
 
 /********************
  * Eventos
@@ -10,6 +11,12 @@ var conversation
 Kinbox.on("conversation", function (data) {
     conversation = data
     console.log("on conversation", data)
+
+    // Obter informações do workspace
+    Kinbox.getWorkspaceInfo(async function (data) {
+        console.log("on workspaceInfo", data)
+        workspaceInfo = data
+    })
 })
 
 Kinbox.on("no_conversation", function (data) {
@@ -107,12 +114,97 @@ function getFacts() {
     fetch("https://meowfacts.herokuapp.com/?count=3")
         .then((res) => res.json())
         .then((res) => {
-            document.getElementById("facts").innerHTML = res.data
-                ?.map((fact) => `<li>${fact}</li>`)
-                .join("")
+            document.getElementById("facts").innerHTML = res.data?.map((fact) => `<li>${fact}</li>`).join("")
             Kinbox.toast("success", "Fatos obtidos")
         })
         .finally(() => {
             Kinbox.loading(false)
         })
+}
+
+function assign() {
+    Kinbox.assignTo(workspaceInfo?.members?.[0]?.id)
+}
+
+function moveToGroup() {
+    Kinbox.moveToGroup(workspaceInfo?.groups?.[0]?.id)
+}
+
+function addTag() {
+    Kinbox.addTag(workspaceInfo?.tags?.[0]?.id)
+}
+
+function removeTag() {
+    Kinbox.addTag(workspaceInfo?.tags?.[0]?.id)
+}
+
+function getWorkspaceInfo() {
+    Kinbox.getWorkspaceInfo()
+}
+
+function sendForm() {
+    Kinbox.sendForm(
+        {
+            items: [
+                {
+                    type: "text",
+                    name: "exemplo_texto",
+                    label: "Exemplo de texto",
+                },
+                {
+                    type: "select",
+                    name: "exemplo_select",
+                    label: "Exemplo de seleção",
+                    options: [
+                        {
+                            value: "fortaleza",
+                            label: "fortaleza",
+                        },
+                        {
+                            value: "são paulo",
+                            label: "são paulo",
+                        },
+                        {
+                            value: "rio de janeiro",
+                            label: "rio de janeiro",
+                        },
+                    ],
+                },
+                {
+                    type: "multi-select",
+                    name: "exemplo_multi_select",
+                    label: "Exemplo de seleção múltipla",
+                    options: [
+                        {
+                            value: "fortaleza",
+                            label: "fortaleza",
+                        },
+                        {
+                            value: "são paulo",
+                            label: "são paulo",
+                        },
+                        {
+                            value: "rio de janeiro",
+                            label: "rio de janeiro",
+                        },
+                    ],
+                },
+                {
+                    type: "number",
+                    name: "exemplo_numero",
+                    label: "Exemplo de número",
+                },
+                {
+                    type: "decimal",
+                    name: "exemplo_decimal",
+                    label: "Exemplo de decimal",
+                },
+            ],
+            type: "modal", // modal or drawer
+            title: "Formulário de exemplo",
+        },
+        async function (payload) {
+            console.log(payload)
+        }
+    )
 }
