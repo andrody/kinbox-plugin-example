@@ -201,6 +201,11 @@ function sendForm(type) {
                     name: "exemplo_decimal",
                     label: "Exemplo de decimal",
                 },
+                {
+                    type: "date",
+                    name: "exemplo_date",
+                    label: "Exemplo de data",
+                },
             ],
             type, // modal or drawer
             title: "Formulário de exemplo",
